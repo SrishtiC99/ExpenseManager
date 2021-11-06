@@ -25,5 +25,5 @@ public interface ExpenseDao {
     void deleteAll();
 
     @Query("Select * FROM expense_table")
-    LiveData<List<Expense>> getAllCategories();
+    LiveData<List<Expense>> getAllExpenses();
 }
