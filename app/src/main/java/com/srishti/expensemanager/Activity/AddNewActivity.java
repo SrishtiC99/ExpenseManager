@@ -9,16 +9,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.srishti.expensemanager.Entity.Category;
 import com.srishti.expensemanager.Entity.Expense;
 import com.srishti.expensemanager.Entity.Income;
 import com.srishti.expensemanager.R;
+import com.srishti.expensemanager.ViewModel.CategoryViewModel;
 import com.srishti.expensemanager.ViewModel.ExpenseViewModel;
 import com.srishti.expensemanager.ViewModel.IncomeViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class AddNewActivity extends AppCompatActivity {
@@ -30,6 +34,7 @@ public class AddNewActivity extends AppCompatActivity {
     EditText incomeDateET;
     private ExpenseViewModel expenseViewModel;
     private IncomeViewModel incomeViewModel;
+    private CategoryViewModel categoryViewModel;
     Calendar myCalendar;
     int FLAG = 0;
     @Override
@@ -114,6 +119,26 @@ public class AddNewActivity extends AppCompatActivity {
         String category = expenseCategoryET.getText().toString();
         String note = expenseNoteET.getText().toString();
         expenseViewModel = ViewModelProviders.of(this).get(ExpenseViewModel.class);
+        categoryViewModel = ViewModelProviders.of(this).get(CategoryViewModel.class);
+        categoryViewModel.getAllCategories().observe(this, new Observer<List<Category>>() {
+            @Override
+            public void onChanged(List<Category> categories) {
+                boolean isPresent = false;
+                for(Category cate : categories){
+                    if(cate.getName().equals(category)){
+                        isPresent = true;
+                        double value = cate.getValue();
+                        cate.setValue(value + amount);
+                        break;
+                    }
+                }
+                if(!isPresent){
+                    Category cate = new Category(category);
+                    cate.setValue(amount);
+                    categoryViewModel.insert(cate);
+                }
+            }
+        });
         Expense expense = new Expense(date, amount, category);
         expense.setNote(note);
         expenseViewModel.insert(expense);
