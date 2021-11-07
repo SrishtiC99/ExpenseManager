@@ -21,7 +21,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         allCategoriesTV = findViewById(R.id.all_category_tv);
         allExpensesTV = findViewById(R.id.all_expenses_tv);
-        allIncomesTV = findViewById(R.id.all_expenses_tv);
+        allIncomesTV = findViewById(R.id.all_incomes_tv);
 
         allIncomesTV.setOnClickListener(new View.OnClickListener() {
             @Override
