@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import com.srishti.expensemanager.Dao.ExpenseDao;
 import com.srishti.expensemanager.Entity.Expense;
 
-@Database(entities = {Expense.class}, version = 1)
+@Database(entities = {Expense.class}, version = 2)
 public abstract class ExpenseDatabase extends RoomDatabase {
     private static ExpenseDatabase instance;
     public abstract ExpenseDao getExpenseDao();
@@ -19,6 +19,7 @@ public abstract class ExpenseDatabase extends RoomDatabase {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     ExpenseDatabase.class,
                     "expense_database")
+                    .fallbackToDestructiveMigration()
                     .build();
         }
         return instance;

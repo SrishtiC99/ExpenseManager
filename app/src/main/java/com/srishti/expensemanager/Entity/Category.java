@@ -1,12 +1,14 @@
 package com.srishti.expensemanager.Entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "category_table")
 public class Category {
-    @PrimaryKey(autoGenerate = false)
-    private String id;
+    @NonNull
+    @PrimaryKey(autoGenerate = true)
+    private int id;
 
     private String name;
 
@@ -16,8 +18,12 @@ public class Category {
         this.name = name;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
+    }
+
+    public void setId(int id){
+        this.id = id;
     }
 
     public String getName() {

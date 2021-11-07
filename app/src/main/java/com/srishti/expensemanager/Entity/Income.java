@@ -1,5 +1,6 @@
 package com.srishti.expensemanager.Entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -7,23 +8,28 @@ import java.text.DateFormat;
 
 @Entity(tableName = "income_table")
 public class Income {
-    @PrimaryKey(autoGenerate = false)
-    private String id;
+    @NonNull
+    @PrimaryKey(autoGenerate = true)
+    private int id;
 
-    private DateFormat date;
+    private String date;
 
     private double value;
 
-    public Income(DateFormat date, double value) {
+    public Income(String date, double value) {
         this.date = date;
         this.value = value;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public DateFormat getDate() {
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public String getDate() {
         return date;
     }
 

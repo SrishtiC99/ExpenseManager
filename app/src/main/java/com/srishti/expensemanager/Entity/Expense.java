@@ -1,5 +1,6 @@
 package com.srishti.expensemanager.Entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -7,10 +8,11 @@ import java.text.DateFormat;
 
 @Entity(tableName = "expense_table")
 public class Expense {
-    @PrimaryKey(autoGenerate = false)
-    private String id;
+    @NonNull
+    @PrimaryKey(autoGenerate = true)
+    private int id;
 
-    private DateFormat date;
+    private String date;
 
     private double amount;
 
@@ -18,17 +20,21 @@ public class Expense {
 
     private String note;
 
-    public Expense(DateFormat date, double amount, String category) {
+    public Expense(String date, double amount, String category) {
         this.date = date;
         this.amount = amount;
         this.category = category;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public DateFormat getDate() {
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public String getDate() {
         return date;
     }
 

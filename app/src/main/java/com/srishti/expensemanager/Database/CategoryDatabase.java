@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import com.srishti.expensemanager.Dao.CategoryDao;
 import com.srishti.expensemanager.Entity.Category;
 
-@Database(entities = {Category.class}, version = 1)
+@Database(entities = {Category.class}, version = 2)
 public abstract class CategoryDatabase extends  RoomDatabase{
     private static CategoryDatabase instance;
     public abstract CategoryDao getCategoryDao();
@@ -19,6 +19,7 @@ public abstract class CategoryDatabase extends  RoomDatabase{
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     CategoryDatabase.class,
                     "category_database")
+                    .fallbackToDestructiveMigration()
                     .build();
         }
         return instance;
